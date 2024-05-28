@@ -1,4 +1,10 @@
-FROM openjdk:17
+FROM openjdk:8-jdk
+
+RUN mkdir /app
+
+COPY app.jar /app/app.jar
+
+WORKDIR /app
+
 EXPOSE 8080
-ADD githubaction-0.0.1-SNAPSHOT.jar githubaction.jar
-ENTRYPOINT ["java","-jar","/githubaction.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
