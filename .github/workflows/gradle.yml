@@ -36,11 +36,36 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    - name: Print project root structure
+    - name: Install tree
+      run: sudo apt-get install -y tree
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Pretty print project root structure
       run: |
         echo "Project root structure:"
-        ls -R
+        tree -L 2
 
+    - name: Pretty print build directory structure
+      run: |
+        echo "Build directory structure:"
+        tree build || echo "Build directory not found"
+
+    - name: Pretty print build/libs directory structure
+      run: |
+        echo "Build/libs directory structure:"
+        tree build/libs || echo "Build/libs directory not found"
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
