@@ -2,7 +2,7 @@ name: Docker CI with Gradle
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ "deploy-to-ec2" ]
 
 permissions:
   contents: read
@@ -75,3 +75,14 @@ jobs:
           context: .
           push: true
           tags: mrabindra109/githubaction:${{ env.DATE }}
+
+  deploy:
+    needs: build-image
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull Image from docker hub
+        run: docker pull mrabindra109/githubaction:latest
+      - name: Delete Old Container
+        run: docker rm -f githubaction-container
+      - name: Run Docker Container
+        run: docker run -d -p 8080:8080 --name githubaction-container mrabindra109/githubaction
