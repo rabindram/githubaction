@@ -18,7 +18,7 @@ jobs:
       - name: Build Project
         run: ./gradlew build -DskipTests
       - name: Login to docker hub
-        run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PASSWORD}}
+        run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
       - name: Build docker image
         run: docker build -t mrabindra109/githubaction .
       - name: Publish image to docker hub
