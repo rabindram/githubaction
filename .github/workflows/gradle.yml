@@ -76,10 +76,6 @@ jobs:
           push: true
           tags: mrabindra109/githubaction:latest
 
-  deploy:
-    needs: build-image
-    runs-on: [aws-ec2]
-    steps:
       - name: Pull Image from docker hub
         run: docker pull mrabindra109/githubaction:latest
       - name: Delete Old Container
