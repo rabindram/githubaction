@@ -2,7 +2,7 @@ FROM openjdk:17-jdk
 
 RUN mkdir /app
 
-COPY app.jar /app/app.jar
+COPY /build/libs/githubaction-0.0.1-SNAPSHOT.jar /app/app.jar
 
 WORKDIR /app
 
