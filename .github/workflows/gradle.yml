@@ -31,6 +31,6 @@ jobs:
       - name: Pull Image from docker hub
         run: docker pull mrabindra109/githubaction:latest
       - name: Delete old container
-        run: docker rm -f mrabindra109/githubaction-container
+        run: docker rm -f githubaction-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name mrabindra109/githubaction mrabindra109/githubaction
+        run: docker run -d -p 8080:8080 --name githubaction-container mrabindra109/githubaction:latest
